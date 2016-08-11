@@ -1,0 +1,225 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:orientation="horizontal"
+    android:windowSoftInputMode="stateHidden"
+    android:background="#000000"
+
+    tools:context=".USBHIDTerminal" >
+
+
+
+
+
+
+
+            <Button
+                android:id="@+id/btnSelectHIDDevice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="36dip"
+                android:minWidth="50dip"
+                android:text="@string/selectHIDDevice"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse"
+                android:textColor="#FFFF00"
+                android:layout_below="@+id/radioGroup"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+            </RadioGroup>
+
+
+
+
+            <Button
+                android:id="@+id/btnSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:minHeight="36dip"
+                android:text="@string/send"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse"
+                android:textColor="#FFFF00"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/btnSelectHIDDevice"
+                android:layout_toEndOf="@+id/btnSelectHIDDevice">
+                <requestFocus />
+            </Button>
+
+            <EditText
+                android:id="@+id/edtxtHidInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse"
+                android:textColor="#FFFF00"
+                android:layout_below="@+id/btnSelectHIDDevice"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true">
+            </EditText>
+
+             <ImageView
+                 android:layout_width="800dp"
+                 android:layout_height="425dp"
+                 android:id="@+id/imageView"
+                 android:padding="1dp"
+                 android:background="@color/red"
+                 android:src="@android:color/black"
+                 android:layout_alignParentBottom="true"
+                 android:layout_toRightOf="@+id/radioGroup"
+                 android:layout_toEndOf="@+id/radioGroup"
+                 android:layout_alignTop="@+id/iv_circleT" />
+
+
+
+
+
+
+        <ImageView
+            android:layout_width="40mm"
+            android:layout_height="40mm"
+            android:id="@+id/iv_circleT"
+            android:src="@android:color/holo_red_dark"
+            android:layout_alignParentBottom="true"
+            android:layout_alignTop="@+id/iv_circleB"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/textView7"
+            android:layout_toStartOf="@+id/textView7">
+        </ImageView>
+
+        <ImageView
+            android:layout_width="40mm"
+            android:layout_height="40mm"
+            android:id="@+id/iv_circleB"
+            android:src="@android:color/holo_green_dark"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/textView4"
+            android:layout_alignEnd="@+id/textView4"
+            android:layout_toRightOf="@+id/iv_circleT"
+            android:layout_toEndOf="@+id/iv_circleT">
+        </ImageView>
+
+
+
+    <SeekBar
+            android:layout_width="100mm"
+            android:layout_height="10mm"
+            android:minHeight="100dp"
+            android:maxHeight="100dp"
+            android:id="@+id/sld_LEDint"
+            android:max="255"
+            android:indeterminate="false"
+        android:layout_below="@+id/edtxtHidInput"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4">
+        </SeekBar>
+
+    <RadioButton
+        android:id="@+id/rbSendData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sendData"
+        android:textAppearance="?android:attr/textAppearanceSmallInverse"
+        android:checked="false"
+        android:foreground="@android:color/holo_orange_light"
+        android:textColor="#FFFF00"
+        android:layout_above="@+id/edtxtHidInput"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <SeekBar
+        android:layout_width="100mm"
+        android:layout_height="10mm"
+        android:minHeight="100dp"
+        android:maxHeight="100dp"
+        android:id="@+id/sld_RGint"
+        android:max="255"
+        android:indeterminate="false"
+        android:progress="0"
+        android:layout_below="@+id/button_match"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4">
+    </SeekBar>
+
+    <SeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="10mm"
+        android:id="@+id/seekBar"
+        android:max="255"
+        android:progress="0"
+        android:indeterminate="false"
+        android:layout_above="@+id/textView4"
+        android:layout_marginBottom="62dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/rbSendData"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="TOP RIGHT CORNER OF FIBER OPTICS ALIGHN HERE!   \/   "
+        android:id="@+id/textView4"
+        android:textColor="@color/blue"
+        android:layout_above="@+id/imageView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Non-Match"
+        android:textColor="#FFFF00"
+        android:onClick="nmatch_click"
+        android:id="@+id/button_nmatch"
+        android:layout_above="@+id/textView4"
+        android:layout_toRightOf="@+id/btnSelectHIDDevice"
+        android:layout_toEndOf="@+id/btnSelectHIDDevice"
+        android:layout_marginBottom="195dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Match"
+        android:onClick="match_click"
+        android:textColor="#FFFF00"
+        android:id="@+id/button_match"
+        android:layout_alignBottom="@+id/button_nmatch"
+        android:layout_toLeftOf="@+id/rbSendData"
+        android:layout_toStartOf="@+id/rbSendData" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50dp"
+        android:textColor="#FFFF00"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/textView7"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calibration"
+        android:textColor="#FFFF00"
+        android:textAppearance="?android:attr/textAppearanceSmallInverse"
+        android:onClick="cali_click"
+        android:id="@+id/button_calibrate"
+        android:layout_above="@+id/edtxtHidInput"
+        android:layout_toRightOf="@+id/btnSend"
+        android:layout_toEndOf="@+id/btnSend" />
+
+
+</RelativeLayout>
