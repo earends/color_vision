@@ -115,13 +115,40 @@
             android:layout_height="10mm"
             android:minHeight="100dp"
             android:maxHeight="100dp"
-            android:id="@+id/sld_LEDint"
+            android:id="@+id/sld_LED0int"
             android:max="255"
             android:indeterminate="false"
         android:layout_below="@+id/edtxtHidInput"
         android:layout_alignRight="@+id/textView4"
         android:layout_alignEnd="@+id/textView4">
         </SeekBar>
+
+    <SeekBar
+        android:layout_width="100mm"
+        android:layout_height="10mm"
+        android:minHeight="100dp"
+        android:maxHeight="100dp"
+        android:id="@+id/sld_LED1int"
+        android:max="255"
+        android:indeterminate="false"
+        android:layout_below="@+id/sld_LED0int"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4">
+    </SeekBar>
+
+    <SeekBar
+        android:layout_width="100mm"
+        android:layout_height="10mm"
+        android:minHeight="100dp"
+        android:maxHeight="100dp"
+        android:id="@+id/sld_LED2int"
+        android:max="255"
+        android:indeterminate="false"
+        android:layout_below="@+id/sld_LED1int"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4">
+    </SeekBar>
+
 
     <RadioButton
         android:id="@+id/rbSendData"

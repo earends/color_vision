@@ -60,7 +60,9 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 	private Button btnSend;
 	private Button btnSelectHIDDevice;
 	private RadioButton rbSendDataType;
-	private SeekBar sbLEDint;
+	private SeekBar sbLED0int;
+	private SeekBar sbLED1int;
+	private SeekBar sbLED2int;
 	private SeekBar sbRGint;
 	private SeekBar seek;
 	private ImageView circletop;
@@ -151,13 +153,13 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		edtxtHidInput.setText("0 0 0");
 
-		sbLEDint = (SeekBar) findViewById(R.id.sld_LEDint);
-		sbLEDint.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+		sbLED0int = (SeekBar) findViewById(R.id.sld_LED0int);
+		sbLED0int.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			public void onStopTrackingTouch(SeekBar seekBar) {
 			}
 			public void onStartTrackingTouch(SeekBar seekBar) {
 			}
-			public void onProgressChanged(SeekBar sbLEDint, int progress,
+			public void onProgressChanged(SeekBar sbLED0int, int progress,
 										  boolean fromUser) {
 				String t = String.valueOf(progress);
 				String msg = "0 " + t + " 0";
@@ -167,6 +169,41 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 
 		});
+
+		sbLED1int = (SeekBar) findViewById(R.id.sld_LED1int);
+		sbLED1int.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			public void onStopTrackingTouch(SeekBar seekBar) {
+			}
+			public void onStartTrackingTouch(SeekBar seekBar) {
+			}
+			public void onProgressChanged(SeekBar sbLED1int, int progress,
+										  boolean fromUser) {
+				String t = String.valueOf(progress);
+				String msg = "1 " + t + " 0";
+				edtxtHidInput.setText(msg);
+				eventBus.post(new USBDataSendEvent(edtxtHidInput.getText().toString()));
+			}
+
+
+		});
+
+		sbLED2int = (SeekBar) findViewById(R.id.sld_LED2int);
+		sbLED2int.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			public void onStopTrackingTouch(SeekBar seekBar) {
+			}
+			public void onStartTrackingTouch(SeekBar seekBar) {
+			}
+			public void onProgressChanged(SeekBar sbLED2int, int progress,
+										  boolean fromUser) {
+				String t = String.valueOf(progress);
+				String msg = "2 " + t + " 0";
+				edtxtHidInput.setText(msg);
+				eventBus.post(new USBDataSendEvent(edtxtHidInput.getText().toString()));
+			}
+
+
+		});
+
 
 		seek = (SeekBar) findViewById(R.id.seekBar);
 		seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
