@@ -66,62 +66,7 @@
                 android:layout_alignParentEnd="true">
             </EditText>
 
-             <ImageView
-                 android:layout_width="800dp"
-                 android:layout_height="425dp"
-                 android:id="@+id/imageView"
-                 android:padding="1dp"
-                 android:background="@color/red"
-                 android:src="@android:color/black"
-                 android:layout_alignParentBottom="true"
-                 android:layout_toRightOf="@+id/radioGroup"
-                 android:layout_toEndOf="@+id/radioGroup"
-                 android:layout_alignTop="@+id/iv_circleT" />
 
-
-
-
-
-
-        <ImageView
-            android:layout_width="40mm"
-            android:layout_height="40mm"
-            android:id="@+id/iv_circleT"
-            android:src="@android:color/holo_red_dark"
-            android:layout_alignParentBottom="true"
-            android:layout_alignTop="@+id/iv_circleB"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/textView7"
-            android:layout_toStartOf="@+id/textView7">
-        </ImageView>
-
-        <ImageView
-            android:layout_width="40mm"
-            android:layout_height="40mm"
-            android:id="@+id/iv_circleB"
-            android:src="@android:color/holo_green_dark"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/textView4"
-            android:layout_alignEnd="@+id/textView4"
-            android:layout_toRightOf="@+id/iv_circleT"
-            android:layout_toEndOf="@+id/iv_circleT">
-        </ImageView>
-
-
-
-    <SeekBar
-            android:layout_width="100mm"
-            android:layout_height="10mm"
-            android:minHeight="100dp"
-            android:maxHeight="100dp"
-            android:id="@+id/sld_LED0int"
-            android:max="255"
-            android:indeterminate="false"
-        android:layout_below="@+id/edtxtHidInput"
-        android:layout_alignRight="@+id/textView4"
-        android:layout_alignEnd="@+id/textView4">
-        </SeekBar>
 
     <SeekBar
         android:layout_width="100mm"
@@ -163,70 +108,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <SeekBar
-        android:layout_width="100mm"
-        android:layout_height="10mm"
-        android:minHeight="100dp"
-        android:maxHeight="100dp"
-        android:id="@+id/sld_RGint"
-        android:max="255"
-        android:indeterminate="false"
-        android:progress="0"
-        android:layout_below="@+id/button_match"
-        android:layout_alignRight="@+id/textView4"
-        android:layout_alignEnd="@+id/textView4">
-    </SeekBar>
-
-    <SeekBar
-        android:layout_width="wrap_content"
-        android:layout_height="10mm"
-        android:id="@+id/seekBar"
-        android:max="255"
-        android:progress="0"
-        android:indeterminate="false"
-        android:layout_above="@+id/textView4"
-        android:layout_marginBottom="62dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/rbSendData"
-        android:layout_toLeftOf="@+id/rbSendData"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="TOP RIGHT CORNER OF FIBER OPTICS ALIGHN HERE!   \/   "
-        android:id="@+id/textView4"
-        android:textColor="@color/blue"
-        android:layout_above="@+id/imageView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Non-Match"
-        android:textColor="#FFFF00"
-        android:onClick="nmatch_click"
-        android:id="@+id/button_nmatch"
-        android:layout_above="@+id/textView4"
-        android:layout_toRightOf="@+id/btnSelectHIDDevice"
-        android:layout_toEndOf="@+id/btnSelectHIDDevice"
-        android:layout_marginBottom="195dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Match"
-        android:onClick="match_click"
-        android:textColor="#FFFF00"
-        android:id="@+id/button_match"
-        android:layout_alignBottom="@+id/button_nmatch"
-        android:layout_toLeftOf="@+id/rbSendData"
-        android:layout_toStartOf="@+id/rbSendData" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -248,6 +129,100 @@
         android:layout_above="@+id/edtxtHidInput"
         android:layout_toRightOf="@+id/btnSend"
         android:layout_toEndOf="@+id/btnSend" />
+
+    <ImageView
+        android:layout_width="35mm"
+        android:layout_height="25mm"
+        android:id="@+id/iv_circleA"
+        android:src="@android:color/holo_red_dark"
+        android:layout_below="@+id/sld_LED2int"
+        android:layout_toRightOf="@+id/radioGroup"
+        android:layout_toEndOf="@+id/radioGroup">
+    </ImageView>
+
+    <ImageView
+        android:layout_width="35mm"
+        android:layout_height="25mm"
+        android:id="@+id/iv_circleB"
+        android:src="@android:color/holo_red_dark"
+        android:layout_below="@+id/iv_circleA"
+        android:layout_toRightOf="@+id/radioGroup"
+        android:layout_toEndOf="@+id/radioGroup">
+    </ImageView>
+
+    <ImageView
+        android:layout_width="35mm"
+        android:layout_height="25mm"
+        android:id="@+id/iv_circleC"
+        android:src="@android:color/holo_red_dark"
+        android:layout_below="@+id/iv_circleB"
+        android:layout_toRightOf="@+id/radioGroup"
+        android:layout_toEndOf="@+id/radioGroup">
+    </ImageView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Match"
+        android:onClick="match_click"
+        android:textColor="#FFFF00"
+        android:id="@+id/button_match"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/sld_RGint"
+        android:layout_toStartOf="@+id/sld_RGint"
+        android:layout_marginRight="47dp"
+        android:layout_marginEnd="47dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Non-Match"
+        android:textColor="#FFFF00"
+        android:onClick="nmatch_click"
+        android:id="@+id/button_nmatch"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/iv_circleC"
+        android:layout_alignEnd="@+id/iv_circleC" />
+
+    <SeekBar
+        android:layout_width="100mm"
+        android:layout_height="10mm"
+        android:minHeight="100dp"
+        android:maxHeight="100dp"
+        android:id="@+id/sld_LED0int"
+        android:max="255"
+        android:indeterminate="false"
+        android:layout_below="@+id/edtxtHidInput"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    </SeekBar>
+
+    <SeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="10mm"
+        android:id="@+id/seekBar"
+        android:max="255"
+        android:progress="0"
+        android:indeterminate="false"
+        android:layout_below="@+id/sld_LED2int"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <SeekBar
+        android:layout_width="100mm"
+        android:layout_height="10mm"
+        android:minHeight="100dp"
+        android:maxHeight="100dp"
+        android:id="@+id/sld_RGint"
+        android:max="255"
+        android:indeterminate="false"
+        android:progress="0"
+        android:layout_above="@+id/textView7"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/seekBar"
+        android:layout_alignStart="@+id/seekBar">
+    </SeekBar>
 
 
 </RelativeLayout>
