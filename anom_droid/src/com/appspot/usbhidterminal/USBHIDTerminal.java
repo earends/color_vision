@@ -13,11 +13,8 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,8 +43,6 @@ import com.appspot.usbhidterminal.core.services.WebServerService;
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.EventBusException;
 
-import static android.widget.ImageView.*;
-
 public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 	private final static String TAG = "HIDTERMINAL-RUNNING";
@@ -63,8 +58,10 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 	private SeekBar sbLED0int;
 	private SeekBar sbLED1int;
 	private SeekBar sbLED2int;
-	private SeekBar sbRGint;
-	private SeekBar seek;
+	//private SeekBar sbRGint;
+	private SeekBar sbRG0int;
+	private SeekBar sbRG1int;
+	private SeekBar sbRG2int;
 	private ImageView circletop;
 	private ImageView circlebottom;
 	//private static ImageView ImageView;
@@ -75,6 +72,8 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 	private String delimiter;
 
 	protected EventBus eventBus;
+
+	private String USBoutputStr = "";
 	private int totalClicks;
 	private int not_matches;
 	private int matches;
@@ -187,7 +186,7 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 		});
 
-		sbLED2int = (SeekBar) findViewById(R.id.sld_LED2int);
+		sbLED2int =(SeekBar) findViewById(R.id.sld_LED2int);
 		sbLED2int.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			public void onStopTrackingTouch(SeekBar seekBar) {
 			}
@@ -205,111 +204,58 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 		});
 
 
-		seek = (SeekBar) findViewById(R.id.seekBar);
-		seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+		sbRG0int = (SeekBar) findViewById(R.id.sld_RG1);
+		sbRG0int.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			public void onStopTrackingTouch(SeekBar seekBar) {
 			}
 			public void onStartTrackingTouch(SeekBar seekBar) {
 			}
-			public void onProgressChanged(SeekBar seek, int progress, boolean fromUser) {
-				ImageView ivcircle = (ImageView) findViewById(R.id.iv_circleT);
-				ivcircle.setColorFilter(Color.rgb(255 - progress, progress,0));
-				//ivcircleT.setColorFilter(Color.rgb(progress,0,255-progress));
+			public void onProgressChanged(SeekBar sbRG0int, int progress, boolean fromUser) {
 
-				///Drawable d = getResources().getDrawable((R.drawable.circle_hor1));
-				///Bitmap m = ((BitmapDrawable)d).getBitmap();
-				//ivcircleT.buildDrawingCache();
-				//Bitmap m = ivcircleT.getDrawingCache();
-				///long prog = (long)progress;
-				///int Red = (int)Math.round(prog * 2.55);
-				///int Grn = 255 - Red;
-				///int colo = Color.rgb(Red, Grn, 0);
-				///changeBitmapColor(m, ivcircleT, colo);
-				/*
-				ImageView ivcircleB = (ImageView) findViewById(R.id.iv_circleB);
-				Drawable dd = getResources().getDrawable((R.drawable.circle_hor1));
-				Bitmap mm = ((BitmapDrawable)dd).getBitmap();
-				int RedInv = Grn;
-				int GrnInv = Red;
-				int colo2 = Color.rgb(RedInv, GrnInv, 0);
-				changeBitmapColor(mm, ivcircleB, colo2);
-				*/
-			}
+				ImageView ivcircleB = (ImageView) findViewById(R.id.iv_circleA);
+				ivcircleB.setColorFilter(Color.rgb( 255 - progress, progress,0));
 
-
-		});
-
-		sbRGint = (SeekBar) findViewById(R.id.sld_RGint);
-		sbRGint.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-			public void onStopTrackingTouch(SeekBar seekBar) {
-			}
-			public void onStartTrackingTouch(SeekBar seekBar) {
-			}
-			public void onProgressChanged(SeekBar sbRGint, int progress, boolean fromUser) {
-
-				//ImageView ivcircleT = (ImageView) findViewById(R.id.iv_circleT);
-				//Drawable d = getResources().getDrawable((R.drawable.circle_hor1));
-				//Bitmap m = ((BitmapDrawable)d).getBitmap();
-
-				///long prog = (long)progress;
-				///int Red = (int)Math.round(prog * 2.55);
-				///int Grn = 255 - Red;
-				///int colo = Color.rgb(Red, Grn, 0);
-				//changeBitmapColor(m, ivcircleT, colo);
-
-				ImageView ivcircleB = (ImageView) findViewById(R.id.iv_circleB);
-				ivcircleB.setColorFilter(Color.rgb( progress,255 - progress,0));
-				///Drawable dd = getResources().getDrawable((R.drawable.circle_hor1));
-				///Bitmap mm = ((BitmapDrawable)dd).getBitmap();
-				///int RedInv = Grn;
-				///int GrnInv = Red;
-				///int colo2 = Color.rgb(RedInv, GrnInv, 0);
-				///changeBitmapColor(mm, ivcircleB, colo2);
 
 			}
 
 
 		});
 
-		/*
-		ImageView ivcircleT = (ImageView) findViewById(R.id.iv_circleT);
-		Drawable d = getResources().getDrawable((R.drawable.circle_hor1));
-		Bitmap m = ((BitmapDrawable)d).getBitmap();
-		int Red = 128;
-		int Grn = 128;
-		int colo = Color.rgb(Red, Grn, 0);
-		changeBitmapColor(m, ivcircleT, colo);
-		ImageView ivcircleB = (ImageView) findViewById(R.id.iv_circleB);
-		Drawable dd = getResources().getDrawable((R.drawable.circle_hor1));
-		Bitmap mm = ((BitmapDrawable)dd).getBitmap();
-		int RedInv = Grn;
-		int GrnInv = Red;
-		int colo2 = Color.rgb(RedInv, GrnInv, 0);
-		changeBitmapColor(mm, ivcircleB, colo2);
-		*/
+
+		sbRG1int = (SeekBar) findViewById(R.id.sld_RG2);
+		sbRG1int.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			public void onStopTrackingTouch(SeekBar seekBar) {
+			}
+			public void onStartTrackingTouch(SeekBar seekBar) {
+			}
+			public void onProgressChanged(SeekBar sbRG1int, int progress, boolean fromUser) {
+
+				ImageView ivcircleB = (ImageView) findViewById(R.id.iv_circleB);
+				ivcircleB.setColorFilter(Color.rgb( 255 - progress, progress,0));
+
+			}
 
 
-		//ImageView ivblack = (ImageView) findViewById(R.id.iv_black);
-		//ImageView ivblack2 = (ImageView) findViewById(R.id.iv_black2);
-		//Drawable d2 = getResources().getDrawable(R.drawable.black_large);
-		//Drawable d3 = getResources().getDrawable(R.drawable.black_large);
-		//Bitmap bl2 = ((BitmapDrawable)d2).getBitmap();
-		//Bitmap bl3 = ((BitmapDrawable)d3).getBitmap();
-		//ivblack.setImageBitmap(bl2);
-		//ivblack2.setImageBitmap(bl3);
+		});
 
-		//this sets the radiobutton to send a hex number
-		//sendToUSBService(Consts.ACTION_USB_DATA_TYPE, true);
-		//rbSendDataType.setChecked(true);
-		//sendToUSBService(Consts.ACTION_USB_DATA_TYPE, rbSendDataType.isChecked());
 
-		//DisplayMetrics metrics = new DisplayMetrics();
-		//getWindowManager().getDefaultDisplay().getMetrics(metrics);
-		//Bitmap.Config conf = Bitmap.Config.ARGB_4444;
+		sbRG2int = (SeekBar) findViewById(R.id.sld_RG3);
+		sbRG2int.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			public void onStopTrackingTouch(SeekBar seekBar) {
+			}
+			public void onStartTrackingTouch(SeekBar seekBar) {
+			}
+			public void onProgressChanged(SeekBar sbRG2int, int progress, boolean fromUser) {
 
-		//Bitmap mNewBitmap = Bitmap.createBitmap(metrics, Color.RED, w, h, conf);
-		//iv.setImageBitmap(mNewBitmap);
-		//iv.setImageBitmap(mNewBitmap);
+				ImageView ivcircle = (ImageView) findViewById(R.id.iv_circleC);
+				ivcircle.setColorFilter(Color.rgb( 255 - progress, progress,0));
+
+			}
+
+
+		});
+
 
 	}
 

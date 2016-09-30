@@ -68,31 +68,7 @@
 
 
 
-    <SeekBar
-        android:layout_width="100mm"
-        android:layout_height="10mm"
-        android:minHeight="100dp"
-        android:maxHeight="100dp"
-        android:id="@+id/sld_LED1int"
-        android:max="255"
-        android:indeterminate="false"
-        android:layout_below="@+id/sld_LED0int"
-        android:layout_alignRight="@+id/textView4"
-        android:layout_alignEnd="@+id/textView4">
-    </SeekBar>
 
-    <SeekBar
-        android:layout_width="100mm"
-        android:layout_height="10mm"
-        android:minHeight="100dp"
-        android:maxHeight="100dp"
-        android:id="@+id/sld_LED2int"
-        android:max="255"
-        android:indeterminate="false"
-        android:layout_below="@+id/sld_LED1int"
-        android:layout_alignRight="@+id/textView4"
-        android:layout_alignEnd="@+id/textView4">
-    </SeekBar>
 
 
     <RadioButton
@@ -130,36 +106,6 @@
         android:layout_toRightOf="@+id/btnSend"
         android:layout_toEndOf="@+id/btnSend" />
 
-    <ImageView
-        android:layout_width="35mm"
-        android:layout_height="25mm"
-        android:id="@+id/iv_circleA"
-        android:src="@android:color/holo_red_dark"
-        android:layout_below="@+id/sld_LED2int"
-        android:layout_toRightOf="@+id/radioGroup"
-        android:layout_toEndOf="@+id/radioGroup">
-    </ImageView>
-
-    <ImageView
-        android:layout_width="35mm"
-        android:layout_height="25mm"
-        android:id="@+id/iv_circleB"
-        android:src="@android:color/holo_red_dark"
-        android:layout_below="@+id/iv_circleA"
-        android:layout_toRightOf="@+id/radioGroup"
-        android:layout_toEndOf="@+id/radioGroup">
-    </ImageView>
-
-    <ImageView
-        android:layout_width="35mm"
-        android:layout_height="25mm"
-        android:id="@+id/iv_circleC"
-        android:src="@android:color/holo_red_dark"
-        android:layout_below="@+id/iv_circleB"
-        android:layout_toRightOf="@+id/radioGroup"
-        android:layout_toEndOf="@+id/radioGroup">
-    </ImageView>
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -173,17 +119,6 @@
         android:layout_marginRight="47dp"
         android:layout_marginEnd="47dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Non-Match"
-        android:textColor="#FFFF00"
-        android:onClick="nmatch_click"
-        android:id="@+id/button_nmatch"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/iv_circleC"
-        android:layout_alignEnd="@+id/iv_circleC" />
-
     <SeekBar
         android:layout_width="100mm"
         android:layout_height="10mm"
@@ -194,35 +129,102 @@
         android:indeterminate="false"
         android:layout_below="@+id/edtxtHidInput"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:progress="0">
     </SeekBar>
-
-    <SeekBar
-        android:layout_width="wrap_content"
-        android:layout_height="10mm"
-        android:id="@+id/seekBar"
-        android:max="255"
-        android:progress="0"
-        android:indeterminate="false"
-        android:layout_below="@+id/sld_LED2int"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 
     <SeekBar
         android:layout_width="100mm"
         android:layout_height="10mm"
         android:minHeight="100dp"
         android:maxHeight="100dp"
-        android:id="@+id/sld_RGint"
+        android:id="@+id/sld_LED1int"
         android:max="255"
         android:indeterminate="false"
+        android:layout_below="@+id/sld_LED0int"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:progress="0">
+    </SeekBar>
+
+    <SeekBar
+        android:layout_width="100mm"
+        android:layout_height="10mm"
+        android:minHeight="100dp"
+        android:maxHeight="100dp"
+        android:id="@+id/sld_LED2int"
+        android:max="255"
+        android:indeterminate="false"
+        android:layout_below="@+id/sld_LED1int"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:progress="0">
+    </SeekBar>
+    <SeekBar
+        android:layout_width="100mm"
+        android:layout_height="10mm"
+        android:id="@+id/sld_RG1"
+        android:max="255"
         android:progress="0"
-        android:layout_above="@+id/textView7"
+        android:indeterminate="false"
+        android:layout_below="@+id/sld_LED2int"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/seekBar"
-        android:layout_alignStart="@+id/seekBar">
-    </SeekBar>
+        android:layout_alignLeft="@+id/textView7"
+        android:layout_alignStart="@+id/textView7" />
+
+    <SeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="10mm"
+        android:id="@+id/sld_RG2"
+        android:max="255"
+        android:progress="0"
+        android:indeterminate="false"
+        android:layout_below="@+id/sld_RG1"
+        android:layout_toRightOf="@+id/textView7"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="25mm"
+        android:layout_height="25mm"
+        android:id="@+id/iv_circleB"
+        android:src="@android:color/holo_red_dark"
+        android:layout_below="@+id/iv_circleA"
+        android:layout_toRightOf="@+id/radioGroup"
+        android:layout_toEndOf="@+id/radioGroup">
+    </ImageView>
+
+    <ImageView
+        android:layout_width="25mm"
+        android:layout_height="25mm"
+        android:id="@+id/iv_circleC"
+        android:src="@android:color/holo_red_dark"
+        android:layout_below="@+id/iv_circleB"
+        android:layout_toRightOf="@+id/radioGroup"
+        android:layout_toEndOf="@+id/radioGroup">
+    </ImageView>
+
+    <ImageView
+        android:layout_width="25mm"
+        android:layout_height="25mm"
+        android:id="@+id/iv_circleA"
+        android:src="@android:color/holo_red_dark"
+        android:layout_alignBottom="@+id/textView7"
+        android:layout_toRightOf="@+id/radioGroup"
+        android:layout_toEndOf="@+id/radioGroup">
+    </ImageView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Non-Match"
+        android:textColor="#FFFF00"
+        android:onClick="nmatch_click"
+        android:id="@+id/button_nmatch"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/button_match"
+        android:layout_toEndOf="@+id/button_match" />
 
 
 </RelativeLayout>

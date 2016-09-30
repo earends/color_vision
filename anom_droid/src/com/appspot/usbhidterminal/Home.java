@@ -77,8 +77,8 @@ public class Home extends Activity {
         email = (EditText) findViewById(R.id.email_text);
         nameG = (EditText) findViewById(R.id.name_guardian_text);
         relation = (EditText) findViewById(R.id.relation_text);
-        phoneG = (EditText) findViewById(R.id.phone_guardian_text);
-        emailG = (EditText) findViewById(R.id.email_guardian_text);
+        //phoneG = (EditText) findViewById(R.id.phone_guardian_text);
+        //emailG = (EditText) findViewById(R.id.email_guardian_text);
 
     }
 
@@ -90,14 +90,14 @@ public class Home extends Activity {
         String dob = DOB.getText().toString();
         String gen = genderStr;
         String Date = date.getText().toString();
-        String Location = location.getText().toString();
+        //String Location = location.getText().toString();
         String Phone = phone.getText().toString();
         String Email = email.getText().toString();
         String Nameg = nameG.getText().toString();
         String Relation = relation.getText().toString();
-        String PhoneG = phoneG.getText().toString();
-        String EmailG = emailG.getText().toString();
-        String total = Name + "," + dob + "," + gen + "," + Date + "," + Location + "," + Phone + "," + Email + "," + Nameg + "," + Relation + "," + PhoneG + "," + EmailG + "," + bitString + ",";
+        //String PhoneG = phoneG.getText().toString();
+        //String EmailG = emailG.getText().toString();
+        String total = Name + "," + dob + "," + gen + "," + Date + "," + "," + Phone + "," + Email + "," + Nameg + "," + Relation + ","+  "," + bitString + ",";
 
         to_write(Name,total);
 
@@ -117,11 +117,11 @@ public class Home extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        ImageView image = (ImageView) findViewById(R.id.patient_image);
+        //ImageView image = (ImageView) findViewById(R.id.patient_image);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            image.setImageBitmap(imageBitmap);
+            //image.setImageBitmap(imageBitmap);
             bitString = BitmapToString(imageBitmap);
         }
     }
