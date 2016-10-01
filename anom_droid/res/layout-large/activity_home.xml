@@ -199,14 +199,13 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Take Image"
-        android:onClick="image_click"
-        android:id="@+id/button_image"
-        android:layout_centerVertical="true"
+        android:text="Start New Test"
+        android:id="@+id/newTest"
+        android:onClick="test_click"
+        android:layout_below="@+id/button_data"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/button_data"
-        android:layout_alignStart="@+id/button_data" />
+        android:layout_marginTop="51dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -217,21 +216,18 @@
         android:layout_below="@+id/button_image"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/email_text"
-        android:layout_alignStart="@+id/email_text" />
+        android:layout_marginTop="47dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start New Test"
-        android:id="@+id/newTest"
-        android:onClick="test_click"
-        android:layout_marginTop="34dp"
-        android:layout_below="@+id/button_data"
+        android:text="Take Image"
+        android:onClick="image_click"
+        android:id="@+id/button_image"
+        android:layout_below="@+id/email_text"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/button_data"
-        android:layout_alignStart="@+id/button_data" />
+        android:layout_marginTop="51dp" />
 
 
 </RelativeLayout>

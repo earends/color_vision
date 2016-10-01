@@ -58,12 +58,11 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 	private SeekBar sbLED0int;
 	private SeekBar sbLED1int;
 	private SeekBar sbLED2int;
-	//private SeekBar sbRGint;
 	private SeekBar sbRG0int;
 	private SeekBar sbRG1int;
 	private SeekBar sbRG2int;
-	private ImageView circletop;
-	private ImageView circlebottom;
+	//private ImageView circletop;
+	//private ImageView circlebottom;
 	//private static ImageView ImageView;
 
 	private String settingsDelimiter;
@@ -73,7 +72,7 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 	protected EventBus eventBus;
 
-	private String USBoutputStr = "";
+	private String USB_Str = "";
 	private int totalClicks;
 	private int not_matches;
 	private int matches;
@@ -161,9 +160,9 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 			public void onProgressChanged(SeekBar sbLED0int, int progress,
 										  boolean fromUser) {
 				String t = String.valueOf(progress);
-				String msg = "0 " + t + " 0";
-				edtxtHidInput.setText(msg);
-				eventBus.post(new USBDataSendEvent(edtxtHidInput.getText().toString()));
+				USB_Str = "0 " + t + " 0";
+				//edtxtHidInput.setText(msg);
+				eventBus.post(new USBDataSendEvent(USB_Str));
 			}
 
 
@@ -178,9 +177,10 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 			public void onProgressChanged(SeekBar sbLED1int, int progress,
 										  boolean fromUser) {
 				String t = String.valueOf(progress);
-				String msg = "1 " + t + " 0";
-				edtxtHidInput.setText(msg);
-				eventBus.post(new USBDataSendEvent(edtxtHidInput.getText().toString()));
+				//String msg = "1 " + t + " 0";
+				USB_Str = "1 " + t + " 0";
+				//edtxtHidInput.setText(msg);
+				eventBus.post(new USBDataSendEvent(USB_Str));
 			}
 
 
@@ -195,9 +195,10 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 			public void onProgressChanged(SeekBar sbLED2int, int progress,
 										  boolean fromUser) {
 				String t = String.valueOf(progress);
-				String msg = "2 " + t + " 0";
-				edtxtHidInput.setText(msg);
-				eventBus.post(new USBDataSendEvent(edtxtHidInput.getText().toString()));
+				//String msg = "2 " + t + " 0";
+				//edtxtHidInput.setText(msg);
+				USB_Str = "2 " + t + " 0";
+				eventBus.post(new USBDataSendEvent(USB_Str));
 			}
 
 
