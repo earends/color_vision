@@ -79,31 +79,16 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 
 
-	private SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-		@Override
-		public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-			Log.d(TAG,"SharedPreferences.onSHared");
-			if ("enable_socket_server".equals(key) || "socket_server_port".equals(key)) {
-				socketServiceIsStart(false);
-				socketServiceIsStart(sharedPreferences.getBoolean("enable_socket_server", false));
-			} else if ("enable_web_server".equals(key) || "web_server_port".equals(key)) {
-				webServerServiceIsStart(false);
-				webServerServiceIsStart(sharedPreferences.getBoolean("enable_web_server", false));
-			}
-		}
-	};
 
 	private void prepareServices() {
 		Log.d(TAG,"prepareServices");
 		usbService = new Intent(this, USBHIDService.class);
 		startService(usbService);
-		webServerServiceIsStart(sharedPreferences.getBoolean("enable_web_server", false));
-		socketServiceIsStart(sharedPreferences.getBoolean("enable_socket_server", false));
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		Log.d(TAG,"ONCREATE");
+		//Log.d(TAG,"ONCREATE");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		try {
@@ -112,12 +97,11 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 			eventBus = EventBus.getDefault();
 		}
 		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		sharedPreferences.registerOnSharedPreferenceChangeListener(listener);
+		//sharedPreferences.registerOnSharedPreferenceChangeListener(listener);
 		initUI();
-		Log.d("pre-completed","eventbus");
 
-		eventBus.post(new PrepareDevicesListEvent());
-		Log.d("completed","eventbus");
+		//eventBus.post(new PrepareDevicesListEvent());
+		//Log.d("completed","eventbus");
 
 		//eventBus.post(new PrepareDevicesListEvent());
 
@@ -134,22 +118,24 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 		matches = 0;
 		not_matches = 0;
 		setVersionToTitle();
-		btnSend = (Button) findViewById(R.id.btnSend);
-		btnSend.setOnClickListener(this);
 
-		btnSelectHIDDevice = (Button) findViewById(R.id.btnSelectHIDDevice);
-		btnSelectHIDDevice.setOnClickListener(this);
+		//this was the send button. should be handled
+		//eventBus.post(new USBDataSendEvent(edtxtHidInput.getText().toString()));
 
-		edtxtHidInput = (EditText) findViewById(R.id.edtxtHidInput);
+//		} else if (v == rbSendDataType) {
+		// this used to send the "isChecked" property.  I think that the "isChecked" property sends true or false
+		//sendToUSBService(Consts.ACTION_USB_DATA_TYPE, rbSendDataType.isChecked());
+		//sendToUSBService(Consts.ACTION_USB_DATA_TYPE, true);
 
-		rbSendDataType = (RadioButton) findViewById(R.id.rbSendData);
+//		} else if (v == btnSelectHIDDevice) {
 
-		rbSendDataType.setOnClickListener(this);
-		//rbSendText.setOnClickListener(this);
+		//Should prepare the list of Devices connected via USB...I'm going to try to auto-select
+		//eventBus.post(new PrepareDevicesListEvent());
+//		}
 
 		mLog("Initialized\nPlease select your USB HID device\n", false);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-		edtxtHidInput.setText("0 0 0");
+		//edtxtHidInput.setText("0 0 0");
 
 		sbLED0int = (SeekBar) findViewById(R.id.sld_LED0int);
 		sbLED0int.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -276,14 +262,7 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 
 	public void onClick(View v) {
-		if (v == btnSend) {
-			eventBus.post(new USBDataSendEvent(edtxtHidInput.getText().toString()));
-		} else if (v == rbSendDataType) {
-			sendToUSBService(Consts.ACTION_USB_DATA_TYPE, rbSendDataType.isChecked());
-		} else if (v == btnSelectHIDDevice) {
-			eventBus.post(new PrepareDevicesListEvent());
-			Log.d(TAG,"Button select HID DEVICE");
-		}
+
 	}
 
 	void showListOfDevices(final CharSequence devicesName[]) {
@@ -327,12 +306,13 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 	}
 
 	public void onEvent(DeviceAttachedEvent event) {
-		btnSend.setEnabled(true);
+		//btnSend.setEnabled(true);
+		//This is where I should set the attached message
 		Log.d(TAG, "onEvent(DeviceAttachedEvent event)");
 	}
 
 	public void onEvent(DeviceDetachedEvent event) {
-		btnSend.setEnabled(false);
+		//btnSend.setEnabled(false);
 		Log.d(TAG, "btnSend.setEnabled(false)");
 	}
 
@@ -437,20 +417,20 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 			return;
 		}
 		switch (action) {
-			case Consts.WEB_SERVER_CLOSE_ACTION:
-				stopService(new Intent(this, WebServerService.class));
-				break;
+			//case Consts.WEB_SERVER_CLOSE_ACTION:
+			//	stopService(new Intent(this, WebServerService.class));
+		//		break;
 			case Consts.USB_HID_TERMINAL_CLOSE_ACTION:
-				stopService(new Intent(this, SocketService.class));
-				stopService(new Intent(this, WebServerService.class));
+		//		stopService(new Intent(this, SocketService.class));
+		//		stopService(new Intent(this, WebServerService.class));
 				stopService(new Intent(this, USBHIDService.class));
 				((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancel(Consts.USB_HID_TERMINAL_NOTIFICATION);
 				finish();
 				break;
-			case Consts.SOCKET_SERVER_CLOSE_ACTION:
-				stopService(new Intent(this, SocketService.class));
-				sharedPreferences.edit().putBoolean("enable_socket_server", false).apply();
-				break;
+		//	case Consts.SOCKET_SERVER_CLOSE_ACTION:
+		//		stopService(new Intent(this, SocketService.class));
+		//		sharedPreferences.edit().putBoolean("enable_socket_server", false).apply();
+		//		break;
 		}
 	}
 
@@ -504,32 +484,7 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 	}
 
-	private void webServerServiceIsStart(boolean isStart) {
-		Log.d(TAG,"webServerServiceIsStart(boolean isStart)");
-		if (isStart) {
-			Log.d(TAG,"LINE 515");
-			Intent webServerService = new Intent(this, WebServerService.class);
-			webServerService.setAction("start");
-			webServerService.putExtra("WEB_SERVER_PORT", Integer.parseInt(sharedPreferences.getString("web_server_port", "7799")));
-			startService(webServerService);
-		} else {
-			stopService(new Intent(this, WebServerService.class));
-		}
-	}
 
-	private void socketServiceIsStart(boolean isStart) {
-		Log.d(TAG,"socketServiceIsStart(boolean isStart)");
-		if (isStart) {
-			Log.d(TAG, "isStart");
-			Intent socketServerService = new Intent(this, SocketService.class);
-			socketServerService.setAction("start");
-			socketServerService.putExtra("SOCKET_PORT", Integer.parseInt(sharedPreferences.getString("socket_server_port", "7899")));
-			startService(socketServerService);
-		} else {
-			Log.d(TAG,"else");
-			stopService(new Intent(this, SocketService.class));
-		}
-	}
 
 	private void setVersionToTitle() {
 		Log.d(TAG,"serVersionToTitle");
