@@ -533,11 +533,13 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 	private void setVersionToTitle() {
 		Log.d(TAG,"serVersionToTitle");
-		try {
-			this.setTitle(Consts.SPACE + this.getTitle() + Consts.SPACE + getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
-		} catch (NameNotFoundException e) {
-			e.printStackTrace();
-		}
+		this.setTitle("anom");
+
+		//try {
+		//  this.setTitle(Consts.SPACE + this.getTitle() + Consts.SPACE + getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
+		//} catch (NameNotFoundException e) {
+		//	e.printStackTrace();
+		//}
 	}
 
 	public  void nmatch_click(View v) {
