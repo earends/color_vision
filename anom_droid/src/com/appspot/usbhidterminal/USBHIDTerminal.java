@@ -61,14 +61,13 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 	private SeekBar sbRG0int;
 	private SeekBar sbRG1int;
 	private SeekBar sbRG2int;
-	//private ImageView circletop;
-	//private ImageView circlebottom;
-	//private static ImageView ImageView;
+
 
 	private String settingsDelimiter;
 
 	private String receiveDataFormat;
 	private String delimiter;
+	private String rad;
 
 	protected EventBus eventBus;
 
@@ -99,7 +98,12 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		//sharedPreferences.registerOnSharedPreferenceChangeListener(listener);
 		initUI();
+		rad = "@string/sendData";
 
+		//show list of usb devices
+		//eventBus.post(new PrepareDevicesListEvent());
+
+		//edtxtHidInput.setText(rad);
 		//eventBus.post(new PrepareDevicesListEvent());
 		//Log.d("completed","eventbus");
 
