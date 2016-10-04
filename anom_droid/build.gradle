@@ -19,6 +19,7 @@ dependencies {
     compile 'com.nanohttpd:nanohttpd:2.1.1'
     compile 'com.nanohttpd:nanohttpd-websocket:2.1.1'
     compile 'de.greenrobot:eventbus:2.4.0'
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 }
 
 android {

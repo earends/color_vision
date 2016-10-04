@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -25,6 +26,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.appspot.usbhidterminal.core.Calibration;
 import com.appspot.usbhidterminal.core.Consts;
@@ -36,9 +38,13 @@ import com.appspot.usbhidterminal.core.events.SelectDeviceEvent;
 import com.appspot.usbhidterminal.core.events.ShowDevicesListEvent;
 import com.appspot.usbhidterminal.core.events.USBDataReceiveEvent;
 import com.appspot.usbhidterminal.core.events.USBDataSendEvent;
-import com.appspot.usbhidterminal.core.services.SocketService;
+//import com.appspot.usbhidterminal.core.services.SocketService;
 import com.appspot.usbhidterminal.core.services.USBHIDService;
-import com.appspot.usbhidterminal.core.services.WebServerService;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
+//import com.appspot.usbhidterminal.core.services.WebServerService;
 
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.EventBusException;
@@ -51,7 +57,7 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 	private Intent usbService;
 
-	private EditText edtxtHidInput;
+	private EditText txtHidInput;
 	private Button btnSend;
 	private Button btnSelectHIDDevice;
 	private RadioButton rbSendDataType;
@@ -75,12 +81,15 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 	private int totalClicks;
 	private int not_matches;
 	private int matches;
-
-
+	/**
+	 * ATTENTION: This was auto-generated to implement the App Indexing API.
+	 * See https://g.co/AppIndexing/AndroidStudio for more information.
+	 */
+	private GoogleApiClient client;
 
 
 	private void prepareServices() {
-		Log.d(TAG,"prepareServices");
+		Log.d(TAG, "prepareServices");
 		usbService = new Intent(this, USBHIDService.class);
 		startService(usbService);
 	}
@@ -98,17 +107,25 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		//sharedPreferences.registerOnSharedPreferenceChangeListener(listener);
 		initUI();
-		rad = "@string/sendData";
+
+
+		//Put the same text into the textbox
+
+		txtHidInput.setText(getString(R.string.sendData));
+
 
 		//show list of usb devices
-		//eventBus.post(new PrepareDevicesListEvent());
+		eventBus.post(new PrepareDevicesListEvent());
 
-		//edtxtHidInput.setText(rad);
+
 		//eventBus.post(new PrepareDevicesListEvent());
 		//Log.d("completed","eventbus");
 
 		//eventBus.post(new PrepareDevicesListEvent());
 
+		// ATTENTION: This was auto-generated to implement the App Indexing API.
+		// See https://g.co/AppIndexing/AndroidStudio for more information.
+		client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 	}
 
 	public void cali_click(View v) {
@@ -117,11 +134,14 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 	}
 
 	private void initUI() {
-		Log.d(TAG,"INIT-UI");
-		totalClicks = 0;
-		matches = 0;
-		not_matches = 0;
+		Log.d(TAG, "INIT-UI");
+		//totalClicks = 0;
+		//matches = 0;
+		//not_matches = 0;
 		setVersionToTitle();
+
+
+		txtHidInput = (EditText) findViewById(R.id.edtxtHidInput);
 
 		//this was the send button. should be handled
 		//eventBus.post(new USBDataSendEvent(edtxtHidInput.getText().toString()));
@@ -139,14 +159,15 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 		mLog("Initialized\nPlease select your USB HID device\n", false);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-		//edtxtHidInput.setText("0 0 0");
 
 		sbLED0int = (SeekBar) findViewById(R.id.sld_LED0int);
 		sbLED0int.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			public void onStopTrackingTouch(SeekBar seekBar) {
 			}
+
 			public void onStartTrackingTouch(SeekBar seekBar) {
 			}
+
 			public void onProgressChanged(SeekBar sbLED0int, int progress,
 										  boolean fromUser) {
 				String t = String.valueOf(progress);
@@ -162,8 +183,10 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 		sbLED1int.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			public void onStopTrackingTouch(SeekBar seekBar) {
 			}
+
 			public void onStartTrackingTouch(SeekBar seekBar) {
 			}
+
 			public void onProgressChanged(SeekBar sbLED1int, int progress,
 										  boolean fromUser) {
 				String t = String.valueOf(progress);
@@ -176,12 +199,14 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 		});
 
-		sbLED2int =(SeekBar) findViewById(R.id.sld_LED2int);
+		sbLED2int = (SeekBar) findViewById(R.id.sld_LED2int);
 		sbLED2int.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			public void onStopTrackingTouch(SeekBar seekBar) {
 			}
+
 			public void onStartTrackingTouch(SeekBar seekBar) {
 			}
+
 			public void onProgressChanged(SeekBar sbLED2int, int progress,
 										  boolean fromUser) {
 				String t = String.valueOf(progress);
@@ -195,17 +220,18 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 		});
 
 
-
 		sbRG0int = (SeekBar) findViewById(R.id.sld_RG1);
 		sbRG0int.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			public void onStopTrackingTouch(SeekBar seekBar) {
 			}
+
 			public void onStartTrackingTouch(SeekBar seekBar) {
 			}
+
 			public void onProgressChanged(SeekBar sbRG0int, int progress, boolean fromUser) {
 
 				ImageView ivcircleB = (ImageView) findViewById(R.id.iv_circleA);
-				ivcircleB.setColorFilter(Color.rgb( 255 - progress, progress,0));
+				ivcircleB.setColorFilter(Color.rgb(255 - progress, progress, 0));
 
 
 			}
@@ -218,12 +244,14 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 		sbRG1int.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			public void onStopTrackingTouch(SeekBar seekBar) {
 			}
+
 			public void onStartTrackingTouch(SeekBar seekBar) {
 			}
+
 			public void onProgressChanged(SeekBar sbRG1int, int progress, boolean fromUser) {
 
 				ImageView ivcircleB = (ImageView) findViewById(R.id.iv_circleB);
-				ivcircleB.setColorFilter(Color.rgb( 255 - progress, progress,0));
+				ivcircleB.setColorFilter(Color.rgb(255 - progress, progress, 0));
 
 			}
 
@@ -235,12 +263,14 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 		sbRG2int.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			public void onStopTrackingTouch(SeekBar seekBar) {
 			}
+
 			public void onStartTrackingTouch(SeekBar seekBar) {
 			}
+
 			public void onProgressChanged(SeekBar sbRG2int, int progress, boolean fromUser) {
 
 				ImageView ivcircle = (ImageView) findViewById(R.id.iv_circleC);
-				ivcircle.setColorFilter(Color.rgb( 255 - progress, progress,0));
+				ivcircle.setColorFilter(Color.rgb(255 - progress, progress, 0));
 
 			}
 
@@ -250,27 +280,12 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 	}
 
-	private void changeBitmapColor(Bitmap sourceBitmap, ImageView iv, int color) {
-
-
-		Bitmap workingBitmap = Bitmap.createBitmap(sourceBitmap, 0, 0, sourceBitmap.getWidth(), sourceBitmap.getHeight());
-		Bitmap resultBitmap = workingBitmap.copy(Bitmap.Config.ARGB_8888, true);
-		Paint p = new Paint();
-		ColorFilter filter = new LightingColorFilter(color, 1);
-		p.setColorFilter(filter);
-		iv.setImageBitmap(resultBitmap);
-
-		Canvas canvas = new Canvas(resultBitmap);
-		canvas.drawBitmap(resultBitmap, 0, 0, p);
-	}
-
-
 	public void onClick(View v) {
 
 	}
 
 	void showListOfDevices(final CharSequence devicesName[]) {
-		Log.d(TAG,"showListOfDevices-USBHID");
+		Log.d(TAG, "showListOfDevices-USBHID");
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
 		if (devicesName.length == 0) {
@@ -283,9 +298,9 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				eventBus.post(new SelectDeviceEvent(0));
-				Log.d(TAG,"builder.setItems");
+				Log.d(TAG, "builder.setItems");
 				Log.d(TAG, (String) devicesName[0]);
-				Log.d(TAG,Integer.toString(which));
+				Log.d(TAG, Integer.toString(which));
 			}
 		});
 		builder.setCancelable(true);
@@ -295,7 +310,7 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 	public void onEvent(USBDataReceiveEvent event) {
 
 		mLog(event.getData() + " \nReceived " + event.getBytesCount() + " bytes", true);
-		Log.d(TAG," void onEvent(USBDataReceiveEvent event");
+		Log.d(TAG, " void onEvent(USBDataReceiveEvent event");
 	}
 
 	public void onEvent(LogMessageEvent event) {
@@ -305,7 +320,7 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 	public void onEvent(ShowDevicesListEvent event) {
 		showListOfDevices(event.getCharSequenceArray());
-		Log.d(event.getCharSequenceArray().toString(),"ONeVENT");
+		Log.d(event.getCharSequenceArray().toString(), "ONeVENT");
 		Log.d(TAG, "onEvent(ShowDevicesListEvent event)");
 	}
 
@@ -322,20 +337,30 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 	@Override
 	protected void onStart() {
-		super.onStart();
+		super.onStart();// ATTENTION: This was auto-generated to implement the App Indexing API.
+// See https://g.co/AppIndexing/AndroidStudio for more information.
+		client.connect();
 		receiveDataFormat = sharedPreferences.getString(Consts.RECEIVE_DATA_FORMAT, Consts.TEXT);
-		Log.d(TAG,receiveDataFormat);
+		Log.d(TAG, receiveDataFormat);
 		Log.d(TAG, "void onStart()");
 		prepareServices();
 		setDelimiter();
 		eventBus.register(this);
+		// ATTENTION: This was auto-generated to implement the App Indexing API.
+		// See https://g.co/AppIndexing/AndroidStudio for more information.
+		AppIndex.AppIndexApi.start(client, getIndexApiAction());
 	}
 
 	@Override
 	protected void onStop() {
 		eventBus.unregister(this);
-		super.onStop();
+		super.onStop();// ATTENTION: This was auto-generated to implement the App Indexing API.
+// See https://g.co/AppIndexing/AndroidStudio for more information.
+		AppIndex.AppIndexApi.end(client, getIndexApiAction());
 		Log.d(TAG, "void onStop()");
+		// ATTENTION: This was auto-generated to implement the App Indexing API.
+		// See https://g.co/AppIndexing/AndroidStudio for more information.
+		client.disconnect();
 	}
 
 	@Override
@@ -350,7 +375,7 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 	private void setSelectedMenuItemsFromSettings(Menu menu) {
 		Log.d(TAG, "setSelectedMenuItemsFromSettings(Menu menu)");
 		receiveDataFormat = sharedPreferences.getString(Consts.RECEIVE_DATA_FORMAT, Consts.TEXT);
-		Log.d(TAG,"LINE 374");
+		Log.d(TAG, "LINE 374");
 		if (receiveDataFormat != null) {
 			if (receiveDataFormat.equals(Consts.BINARY)) {
 				menu.findItem(R.id.menuSettingsReceiveBinary).setChecked(true);
@@ -380,31 +405,31 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		item.setChecked(true);
 		switch (item.getItemId()) {
-		case R.id.menuSettings:
-			Intent i = new Intent(this, SettingsActivity.class);
-			startActivityForResult(i, Consts.RESULT_SETTINGS);
-			break;
-		case R.id.menuSettingsReceiveBinary:
-			editor.putString(Consts.RECEIVE_DATA_FORMAT, Consts.BINARY).apply();
-			break;
-		case R.id.menuSettingsReceiveInteger:
-			editor.putString(Consts.RECEIVE_DATA_FORMAT, Consts.INTEGER).apply();
-			break;
-		case R.id.menuSettingsReceiveHexadecimal:
-			editor.putString(Consts.RECEIVE_DATA_FORMAT, Consts.HEXADECIMAL).apply();
-			break;
-		case R.id.menuSettingsReceiveText:
-			editor.putString(Consts.RECEIVE_DATA_FORMAT, Consts.TEXT).apply();
-			break;
-		case R.id.menuSettingsDelimiterNone:
-			editor.putString(Consts.DELIMITER, Consts.DELIMITER_NONE).apply();
-			break;
-		case R.id.menuSettingsDelimiterNewLine:
-			editor.putString(Consts.DELIMITER, Consts.DELIMITER_NEW_LINE).apply();
-			break;
-		case R.id.menuSettingsDelimiterSpace:
-			editor.putString(Consts.DELIMITER, Consts.DELIMITER_SPACE).apply();
-			break;
+			case R.id.menuSettings:
+				Intent i = new Intent(this, SettingsActivity.class);
+				startActivityForResult(i, Consts.RESULT_SETTINGS);
+				break;
+			case R.id.menuSettingsReceiveBinary:
+				editor.putString(Consts.RECEIVE_DATA_FORMAT, Consts.BINARY).apply();
+				break;
+			case R.id.menuSettingsReceiveInteger:
+				editor.putString(Consts.RECEIVE_DATA_FORMAT, Consts.INTEGER).apply();
+				break;
+			case R.id.menuSettingsReceiveHexadecimal:
+				editor.putString(Consts.RECEIVE_DATA_FORMAT, Consts.HEXADECIMAL).apply();
+				break;
+			case R.id.menuSettingsReceiveText:
+				editor.putString(Consts.RECEIVE_DATA_FORMAT, Consts.TEXT).apply();
+				break;
+			case R.id.menuSettingsDelimiterNone:
+				editor.putString(Consts.DELIMITER, Consts.DELIMITER_NONE).apply();
+				break;
+			case R.id.menuSettingsDelimiterNewLine:
+				editor.putString(Consts.DELIMITER, Consts.DELIMITER_NEW_LINE).apply();
+				break;
+			case R.id.menuSettingsDelimiterSpace:
+				editor.putString(Consts.DELIMITER, Consts.DELIMITER_SPACE).apply();
+				break;
 		}
 
 		receiveDataFormat = sharedPreferences.getString(Consts.RECEIVE_DATA_FORMAT, Consts.TEXT);
@@ -423,25 +448,25 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 		switch (action) {
 			//case Consts.WEB_SERVER_CLOSE_ACTION:
 			//	stopService(new Intent(this, WebServerService.class));
-		//		break;
+			//		break;
 			case Consts.USB_HID_TERMINAL_CLOSE_ACTION:
-		//		stopService(new Intent(this, SocketService.class));
-		//		stopService(new Intent(this, WebServerService.class));
+				//		stopService(new Intent(this, SocketService.class));
+				//		stopService(new Intent(this, WebServerService.class));
 				stopService(new Intent(this, USBHIDService.class));
 				((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancel(Consts.USB_HID_TERMINAL_NOTIFICATION);
 				finish();
 				break;
-		//	case Consts.SOCKET_SERVER_CLOSE_ACTION:
-		//		stopService(new Intent(this, SocketService.class));
-		//		sharedPreferences.edit().putBoolean("enable_socket_server", false).apply();
-		//		break;
+			//	case Consts.SOCKET_SERVER_CLOSE_ACTION:
+			//		stopService(new Intent(this, SocketService.class));
+			//		sharedPreferences.edit().putBoolean("enable_socket_server", false).apply();
+			//		break;
 		}
 	}
 
 	private void setDelimiter() {
 		Log.d(TAG, "void setDelimiter()");
 		settingsDelimiter = sharedPreferences.getString(Consts.DELIMITER, Consts.DELIMITER_NEW_LINE);
-		Log.d(TAG,settingsDelimiter);
+		Log.d(TAG, settingsDelimiter);
 		if (settingsDelimiter != null) {
 			if (settingsDelimiter.equals(Consts.DELIMITER_NONE)) {
 				delimiter = "";
@@ -459,39 +484,38 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 	void sendToUSBService(String action) {
 		Log.d(TAG, "sendToUSBService(String action)");
-		Log.d(TAG,action);
+		Log.d(TAG, action);
 		usbService.setAction(action);
 		startService(usbService);
 	}
 
 	void sendToUSBService(String action, boolean data) {
 		Log.d(TAG, "Line 489 - sendToUSBService(String action, boolean data)");
-		Log.d(TAG,action);
-		Log.d(TAG,Boolean.toString(data));
+		Log.d(TAG, action);
+		Log.d(TAG, Boolean.toString(data));
 		usbService.putExtra(action, data);
 		sendToUSBService(action);
 	}
 
 	void sendToUSBService(String action, int data) {
 		Log.d(TAG, "Line 497 - sendToUSBService(String action, int data)");
-		Log.d(TAG,action);
-		Log.d(TAG,Integer.toString(data));
+		Log.d(TAG, action);
+		Log.d(TAG, Integer.toString(data));
 		usbService.putExtra(action, data);
 		sendToUSBService(action);
 	}
 
 	private void mLog(String log, boolean newLine) {
 		Log.d(TAG, log);
-		Log.d(TAG,Boolean.toString(newLine));
-		Log.d(TAG,"LINE 507");
+		Log.d(TAG, Boolean.toString(newLine));
+		Log.d(TAG, "LINE 507");
 
 
 	}
 
 
-
 	private void setVersionToTitle() {
-		Log.d(TAG,"serVersionToTitle");
+		Log.d(TAG, "serVersionToTitle");
 		this.setTitle("anom");
 
 		//try {
@@ -501,7 +525,7 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 		//}
 	}
 
-	public  void nmatch_click(View v) {
+	public void nmatch_click(View v) {
 		totalClicks += 1;
 		not_matches += 1;
 	}
@@ -511,4 +535,19 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 		matches += 1;
 	}
 
+	/**
+	 * ATTENTION: This was auto-generated to implement the App Indexing API.
+	 * See https://g.co/AppIndexing/AndroidStudio for more information.
+	 */
+	public Action getIndexApiAction() {
+		Thing object = new Thing.Builder()
+				.setName("USBHIDTerminal Page") // TODO: Define a title for the content shown.
+				// TODO: Make sure this auto-generated URL is correct.
+				.setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+				.build();
+		return new Action.Builder(Action.TYPE_VIEW)
+				.setObject(object)
+				.setActionStatus(Action.STATUS_TYPE_COMPLETED)
+				.build();
+	}
 } // end brackets
