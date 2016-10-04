@@ -112,10 +112,13 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 		//Put the same text into the textbox
 
 		txtHidInput.setText(getString(R.string.sendData));
+		//txtHidInput.setText(String.valueOf(rbSendDataType.isChecked()));
+
 
 
 		//show list of usb devices
 		eventBus.post(new PrepareDevicesListEvent());
+
 
 
 		//eventBus.post(new PrepareDevicesListEvent());
@@ -126,6 +129,9 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 		// ATTENTION: This was auto-generated to implement the App Indexing API.
 		// See https://g.co/AppIndexing/AndroidStudio for more information.
 		client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+		//sendToUSBService(Consts.ACTION_USB_DATA_TYPE);
+		//sendToUSBService(Consts.ACTION_USB_DATA_TYPE, true);
 	}
 
 	public void cali_click(View v) {
@@ -142,6 +148,9 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 
 		txtHidInput = (EditText) findViewById(R.id.edtxtHidInput);
+
+		rbSendDataType = (RadioButton) findViewById(R.id.rbSendData);
+
 
 		//this was the send button. should be handled
 		//eventBus.post(new USBDataSendEvent(edtxtHidInput.getText().toString()));
