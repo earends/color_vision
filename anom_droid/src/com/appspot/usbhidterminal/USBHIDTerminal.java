@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -61,6 +62,7 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 	private Button btnSend;
 	private Button btnSelectHIDDevice;
 	private RadioButton rbSendDataType;
+	private CheckBox chk_USBAttached;
 	private SeekBar sbLED0int;
 	private SeekBar sbLED1int;
 	private SeekBar sbLED2int;
@@ -106,6 +108,7 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 		}
 		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		//sharedPreferences.registerOnSharedPreferenceChangeListener(listener);
+
 		initUI();
 
 
@@ -116,8 +119,9 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 
 
+
 		//show list of usb devices
-		eventBus.post(new PrepareDevicesListEvent());
+
 
 
 
@@ -130,6 +134,7 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 		// See https://g.co/AppIndexing/AndroidStudio for more information.
 		client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
+		eventBus.post(new PrepareDevicesListEvent());
 		//sendToUSBService(Consts.ACTION_USB_DATA_TYPE);
 		//sendToUSBService(Consts.ACTION_USB_DATA_TYPE, true);
 	}
@@ -148,10 +153,10 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 
 		txtHidInput = (EditText) findViewById(R.id.edtxtHidInput);
-
 		rbSendDataType = (RadioButton) findViewById(R.id.rbSendData);
-
-
+		btnSelectHIDDevice = (Button) findViewById(R.id.btnSelectHIDDevice);
+		btnSelectHIDDevice.setOnClickListener(this);
+		chk_USBAttached = (CheckBox) findViewById(R.id.chk_USBattached);
 		//this was the send button. should be handled
 		//eventBus.post(new USBDataSendEvent(edtxtHidInput.getText().toString()));
 
@@ -184,8 +189,6 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 				//edtxtHidInput.setText(msg);
 				eventBus.post(new USBDataSendEvent(USB_Str));
 			}
-
-
 		});
 
 		sbLED1int = (SeekBar) findViewById(R.id.sld_LED1int);
@@ -204,8 +207,6 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 				//edtxtHidInput.setText(msg);
 				eventBus.post(new USBDataSendEvent(USB_Str));
 			}
-
-
 		});
 
 		sbLED2int = (SeekBar) findViewById(R.id.sld_LED2int);
@@ -224,8 +225,6 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 				USB_Str = "2 " + t + " 0";
 				eventBus.post(new USBDataSendEvent(USB_Str));
 			}
-
-
 		});
 
 
@@ -241,11 +240,7 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 				ImageView ivcircleB = (ImageView) findViewById(R.id.iv_circleA);
 				ivcircleB.setColorFilter(Color.rgb(255 - progress, progress, 0));
-
-
 			}
-
-
 		});
 
 
@@ -261,10 +256,7 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 				ImageView ivcircleB = (ImageView) findViewById(R.id.iv_circleB);
 				ivcircleB.setColorFilter(Color.rgb(255 - progress, progress, 0));
-
 			}
-
-
 		});
 
 
@@ -280,17 +272,20 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 				ImageView ivcircle = (ImageView) findViewById(R.id.iv_circleC);
 				ivcircle.setColorFilter(Color.rgb(255 - progress, progress, 0));
-
 			}
-
-
 		});
 
 
 	}
 
 	public void onClick(View v) {
-
+		if (v == btnSelectHIDDevice)
+		{
+			totalClicks += 1;
+			txtHidInput.setText(Integer.toString(totalClicks));
+		//Should prepare the list of Devices connected via USB...I'm going to try to auto-select
+			eventBus.post(new PrepareDevicesListEvent());
+		}
 	}
 
 	void showListOfDevices(final CharSequence devicesName[]) {
@@ -335,12 +330,15 @@ public class USBHIDTerminal extends Activity implements View.OnClickListener {
 
 	public void onEvent(DeviceAttachedEvent event) {
 		//btnSend.setEnabled(true);
+
 		//This is where I should set the attached message
+		chk_USBAttached.setChecked(true);
 		Log.d(TAG, "onEvent(DeviceAttachedEvent event)");
 	}
 
 	public void onEvent(DeviceDetachedEvent event) {
 		//btnSend.setEnabled(false);
+		chk_USBAttached.setChecked(false);
 		Log.d(TAG, "btnSend.setEnabled(false)");
 	}
 

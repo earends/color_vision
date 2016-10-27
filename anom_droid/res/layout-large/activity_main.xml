@@ -85,9 +85,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sendData"
+        android:textColor="#FFFF00"
         android:textAppearance="?android:attr/textAppearanceSmallInverse"
         android:checked="false"
-        android:foreground="@android:color/holo_orange_light"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintBottom_creator="1"
         app:layout_constraintBottom_toTopOf="@+id/edtxtHidInput"
@@ -251,6 +251,18 @@
         app:layout_constraintLeft_toLeftOf="parent">
 
     </ImageView>
+
+    <CheckBox
+        android:text="Anomaloscope Attached"
+        android:layout_width="208dp"
+        android:layout_height="35dp"
+        android:textColor="#FFFF00"
+        android:id="@+id/chk_USBattached"
+        android:layout_marginTop="64dp"
+        app:layout_constraintTop_toBottomOf="@+id/sld_RG3"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp" />
 
 
 </android.support.constraint.ConstraintLayout>
